@@ -33,12 +33,12 @@ public class TurretComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 directionToTarget = target.position - transform.position;
-        float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, directionToTarget.normalized)) * Mathf.Rad2Deg;
+        Vector3 newDirection = target.position - transform.position;
+        float angleToTarget = Mathf.Acos(Vector3.Dot(transform.forward, newDirection.normalized)) * Mathf.Rad2Deg;
 
         if (angleToTarget <= maxAngle)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            Quaternion targetRotation = Quaternion.LookRotation(newDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
