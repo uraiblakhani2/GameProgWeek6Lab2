@@ -13,22 +13,41 @@ public class ShootingScript : MonoBehaviour
         target = GameObject.Find("Turret").transform;
     }
 
-    void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-            Instantiate(particleSystemPrefab, transform.position, transform.rotation);
-            if (Physics.Raycast(ray, out hit))
-            {
+//     void Update()
+//     {
+//         if (Input.GetButtonDown("Fire1"))
+//         {
+//             RaycastHit hit;
+//             Ray ray = Camera.main.ScreenPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+//             Instantiate(particleSystemPrefab, transform.position, transform.rotation);
+//             if (Physics.Raycast(ray, out hit))
+//             {
+//                   if (hit.collider.tag == "Player") {    
+               
+//             }
+//         }
+//     }
+// }
 
-                
-                TurretComponent turretComponent = target.GetComponent<TurretComponent>();
+ void Update()
+{
+   if (Input.GetButtonDown("Fire1")) {
+      Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+      RaycastHit hit;
+       Instantiate(particleSystemPrefab, transform.position, transform.rotation);
+       
+      if (Physics.Raycast(ray, out hit)) {
+         if (hit.collider.tag == "Turret") {
+            GameObject hitObject = hit.collider.gameObject;
+           TurretComponent turretComponent = target.GetComponent<TurretComponent>();
                 turretComponent.TakeDamage(10);
-            }
-        }
-    }
+         }
+      }
+     
+
+   }
 }
 
+
+}
 
